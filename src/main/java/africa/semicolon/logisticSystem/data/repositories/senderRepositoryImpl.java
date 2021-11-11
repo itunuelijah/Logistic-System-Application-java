@@ -30,7 +30,7 @@ public class senderRepositoryImpl implements  SenderRepository {
     }
 
     @Override
-    public list<Sender> findAll(){
+    public List<Sender> findAll(){
         list<Sender> all = new ArrayList<>();
         Set<String> keysInDB = database.keySet();
         for(String key: keysInDB){
