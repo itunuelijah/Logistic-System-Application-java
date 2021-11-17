@@ -2,6 +2,7 @@ package africa.semicolon.logisticSystem.services;
 
 import africa.semicolon.logisticSystem.data.models.Sender;
 import africa.semicolon.logisticSystem.data.repositories.SenderRepository;
+import africa.semicolon.logisticSystem.data.repositories.SenderRepositoryImpl;
 import africa.semicolon.logisticSystem.dto.requests.RegisterSenderRequest;
 import africa.semicolon.logisticSystem.dto.responses.RegisterSenderResponse;
 import africa.semicolon.logisticSystem.exception.DuplicateUserException;

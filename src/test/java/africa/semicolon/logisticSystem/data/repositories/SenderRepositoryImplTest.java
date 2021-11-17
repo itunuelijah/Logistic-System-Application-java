@@ -1,18 +1,17 @@
 package africa.semicolon.logisticSystem.data.repositories;
 
 import africa.semicolon.logisticSystem.data.models.Sender;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class senderRepositoryImplTest {
+class SenderRepositoryImplTest {
 SenderRepository senderRepository;
 
     @BeforeEach
     void setUp() {
-    senderRepository = new senderRepositoryImpl();
+    senderRepository = new SenderRepositoryImpl();
     }
 
     @Test

@@ -4,7 +4,7 @@ import africa.semicolon.logisticSystem.data.models.Sender;
 
 import java.util.*;
 
-public class senderRepositoryImpl implements  SenderRepository {
+public class SenderRepositoryImpl implements  SenderRepository {
     Map<String, Sender> database = new HashMap<>();
 
     @Override
