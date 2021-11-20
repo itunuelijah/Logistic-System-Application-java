@@ -31,7 +31,7 @@ public class SenderRepositoryImpl implements  SenderRepository {
 
     @Override
     public List<Sender> findAll(){
-        list<Sender> all = new ArrayList<>();
+        List<Sender> all = new ArrayList<>();
         Set<String> keysInDB = database.keySet();
         for(String key: keysInDB){
             all.add(database.get(key));
