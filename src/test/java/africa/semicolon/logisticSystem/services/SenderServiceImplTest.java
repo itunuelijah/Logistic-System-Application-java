@@ -3,9 +3,8 @@ package africa.semicolon.logisticSystem.services;
 import africa.semicolon.logisticSystem.dto.requests.RegisterSenderRequest;
 import africa.semicolon.logisticSystem.dto.responses.RegisterSenderResponse;
 import africa.semicolon.logisticSystem.exception.DuplicateUserException;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import africa.semicolon.logisticSystem.exception.UserDoesNotExistException;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,5 +43,11 @@ private SenderService senderService;
     void duplicateEmail_throwsException(){
         registerSenderTestHelper();
         assertThrows(DuplicateUserException.class, () -> registerSenderTestHelper());
+    }
+
+    @Test
+    void nonExistingSenderEmail_throwsException(){
+        registerSenderTestHelper();
+        assertThrows(UserDoesNotExistException.class, () -> senderService.findSenderByEmail("toska@gmail.com"));
     }
 }

@@ -1,11 +1,17 @@
 package africa.semicolon.logisticSystem.data.repositories;
 
 import africa.semicolon.logisticSystem.data.models.Package;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import africa.semicolon.logisticSystem.data.models.Sender;
+import africa.semicolon.logisticSystem.dto.requests.RegisterSenderRequest;
+import africa.semicolon.logisticSystem.services.SenderService;
+import africa.semicolon.logisticSystem.services.SenderServiceImpl;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import  org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+//import static org.junit.jupiter.api.Assertions.*;
 
 class PackageRepositoryImplTest {
     PackageRepository packageRepository;
@@ -17,7 +23,7 @@ class PackageRepositoryImplTest {
     @AfterEach
     void tearDown() {
     }
-public void saveNewPackage(){
+public Package saveNewPackage(){
     Package aPackage = new Package();
     aPackage.setName("Sleeping Mat");
     aPackage.setSenderEmail("Jerry@email.com");
@@ -26,6 +32,7 @@ public void saveNewPackage(){
     aPackage.setDeliveryAddress("312 Herbert Macaulay Way Sabo Yaba Lagos");
     aPackage.setNetWeight(23.5);
 
+    return aPackage;
 }
     @Test
     void saveNewPackageTest() {
@@ -72,5 +79,35 @@ public void saveNewPackage(){
     void findPackageByTrackingNumber() {
         Package savedPackage = saveNewPackage();
         assertEquals(savedPackage, packageRepository.findPackageById(1));
+    }
+
+
+    @Test
+    void findPackageBySender(){
+        Sender sender = new Sender();
+        sender.setSenderName("Toska");
+        sender.setPhoneNumber("0901234567");
+        sender.setEmailAddress("toska@gmail.com");
+
+        RegisterSenderRequest registerSenderRequest = new RegisterSenderRequest();
+        registerSenderRequest.setSenderName(sender.getSenderName());
+        registerSenderRequest.setSenderEmail(sender.getEmailAddress());
+        registerSenderRequest.setPhoneNumber(sender.getPhoneNumber());
+
+        SenderService senderService = new SenderServiceImpl();
+        senderService.registerSender(registerSenderRequest);
+
+        Package aPackage = new Package();
+        aPackage.setName("Sleeping Mat");
+        aPackage.setSenderEmail(registerSenderRequest.getSenderEmail());
+        aPackage.setReceiverName("Dami");
+        aPackage.setReceiverPhone("08033310111");
+        aPackage.setDeliveryAddress("312 Herbert Macaulay Way Sabo Yaba Lagos");
+        aPackage.setNetWeight(23.5);
+
+        Package savedPackage = packageRepository.save(aPackage);
+
+        Package thePackage = packageRepository.findPackageBySenderEmail("toska@gmail.com");
+        assertEquals(savedPackage, thePackage);
     }
 }

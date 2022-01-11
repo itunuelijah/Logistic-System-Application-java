@@ -6,6 +6,7 @@ import africa.semicolon.logisticSystem.data.repositories.SenderRepositoryImpl;
 import africa.semicolon.logisticSystem.dto.requests.RegisterSenderRequest;
 import africa.semicolon.logisticSystem.dto.responses.RegisterSenderResponse;
 import africa.semicolon.logisticSystem.exception.DuplicateUserException;
+import africa.semicolon.logisticSystem.exception.UserDoesNotExistException;
 import africa.semicolon.logisticSystem.utils.ModelMapper;
 
 import java.util.List;
@@ -41,7 +42,8 @@ public class SenderServiceImpl implements  SenderService{
         }
 
         @Override
-        public Sender findSenderByEmail(String email) {
-            return senderRepository.findSenderByEmail(email).get();
+        public Optional<Sender> findSenderByEmail(String email) {
+            if(!senderRepository.findSenderByEmail(email).isPresent()) throw new UserDoesNotExistException("Sender does not exist");
+            return senderRepository.findSenderByEmail(email);
         }
     }

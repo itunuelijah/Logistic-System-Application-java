@@ -2,9 +2,12 @@ package africa.semicolon.logisticSystem.utils;
 
 import africa.semicolon.logisticSystem.data.models.Package;
 import africa.semicolon.logisticSystem.data.models.Sender;
+import africa.semicolon.logisticSystem.data.models.TrackingData;
 import africa.semicolon.logisticSystem.dto.requests.AddPackageRequest;
+import africa.semicolon.logisticSystem.dto.requests.AddTrackingInfoRequest;
 import africa.semicolon.logisticSystem.dto.requests.RegisterSenderRequest;
 import africa.semicolon.logisticSystem.dto.responses.AddPackageResponse;
+import africa.semicolon.logisticSystem.dto.responses.AddTrackingInfoResponse;
 import africa.semicolon.logisticSystem.dto.responses.RegisterSenderResponse;
 import lombok.Data;
 
@@ -44,6 +47,14 @@ public class ModelMapper {
          RegisterSenderResponse response = new RegisterSenderResponse();
          response.setSenderEmail(sender.getEmailAddress());
          return response;
+    }
+
+    public static AddTrackingInfoResponse map(TrackingData trackingData, AddTrackingInfoRequest addTrackingInfoRequest) {
+        AddTrackingInfoResponse addTrackingInfoResponse = new AddTrackingInfoResponse();
+        addTrackingInfoResponse.setPackageId(addTrackingInfoRequest.getPackageId());
+        addTrackingInfoResponse.setEvent(trackingData.getEvent());
+        addTrackingInfoResponse.setDateTime(trackingData.getDateTimeOfEvent());
+        return addTrackingInfoResponse;
     }
 }
 

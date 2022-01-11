@@ -8,4 +8,5 @@ public interface PackageService {
     public AddPackageResponse addPackage(AddPackageRequest addPackageRequest);
 
     Package findMyPackageWithMy(Integer id);
+    Package findPackageWithSenderEmail(String email);
 }

@@ -8,6 +8,8 @@ import africa.semicolon.logisticSystem.services.SenderService;
 import africa.semicolon.logisticSystem.services.SenderServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 public class SenderController {
     private SenderService senderService = new SenderServiceImpl();
@@ -18,7 +20,7 @@ public class SenderController {
     }
 
     @GetMapping("/api/v1/sender/{email}")
-    public Sender getSenderById(@PathVariable String email){
+    public Optional<Sender> getSenderById(@PathVariable String email){
         return senderService.findSenderByEmail(email);
     }
 }

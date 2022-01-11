@@ -6,18 +6,19 @@ import africa.semicolon.logisticSystem.data.repositories.PackageRepository;
 import africa.semicolon.logisticSystem.data.repositories.PackageRepositoryImpl;
 import africa.semicolon.logisticSystem.dto.requests.AddPackageRequest;
 import africa.semicolon.logisticSystem.dto.responses.AddPackageResponse;
+import africa.semicolon.logisticSystem.exception.UserDoesNotExistException;
 import africa.semicolon.logisticSystem.utils.ModelMapper;
 
 import java.util.Optional;
 
-public class PackageServiceImpl implements PackageService{
+public class PackageServiceImpl implements PackageService {
     private static final PackageRepository packageRepository = new PackageRepositoryImpl();
-private final SenderService senderService = new SenderServiceImpl();
+    private final SenderService senderService = new SenderServiceImpl();
 
     @Override
     public AddPackageResponse addPackage(AddPackageRequest addPackageRequest) {
-        Sender senderOptional = senderService.findSenderByEmail(addPackageRequest.getSenderEmail());
-        if(senderOptional==null) throw new SenderDoesNotExistException("Sender not registered");
+        Optional<Sender> senderOptional = senderService.findSenderByEmail(addPackageRequest.getSenderEmail());
+        if (senderOptional.isEmpty()) throw new UserDoesNotExistException("Sender not registered");
         //convert addPackage request to a package
         Package aPackage = ModelMapper.map(addPackageRequest);
 
@@ -27,11 +28,16 @@ private final SenderService senderService = new SenderServiceImpl();
         //convert saved package to addPackage response
         AddPackageResponse response = ModelMapper.map(savedPackage);
         //return converted response
-        return  response;
+        return response;
     }
 
     @Override
     public Package findMyPackageWithMy(Integer id) {
         return packageRepository.findPackageById(id);
+    }
+
+
+    public Package findPackageWithSenderEmail(String email) {
+        return packageRepository.findPackageBySenderEmail(email);
     }
 }

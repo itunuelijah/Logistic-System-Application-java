@@ -5,6 +5,7 @@ import africa.semicolon.logisticSystem.dto.requests.RegisterSenderRequest;
 import africa.semicolon.logisticSystem.dto.responses.RegisterSenderResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SenderService {
     RegisterSenderResponse registerSender(RegisterSenderRequest registerSenderRequest);
@@ -12,5 +13,5 @@ public interface SenderService {
 
     void deleteAllSenders();
 
-    Sender findSenderByEmail(String email);
+    Optional<Sender> findSenderByEmail(String email);
 }
